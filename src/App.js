@@ -13,7 +13,21 @@ class NewTaskForm extends Component {
 
   state = { NewTaskName: "", NewTaskDueDate: "" };
   componentDidMount() {
+    var _this = this;
+    var aScript = document.createElement('link');
+    aScript.rel = 'stylesheet';
+    aScript.href = "https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.css";
 
+    document.head.appendChild(aScript);
+    $.getScript("https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.js").then(function () {
+
+      $('#newTaskDueDate').datepicker().on('changeDate', function (ev) {
+        // $("#newTaskDueDate").change();
+        // _this.state.NewTaskDueDate = ev.date;
+        _this.setState({ NewTaskDueDate: $("#newTaskDueDate").val() });
+      });
+    })
+    //$(".DatePicker").val("aaaa");/
 
   }
   createNewTask = () => {
@@ -95,21 +109,7 @@ class App extends Component {
       });
   }
   componentDidMount() {
-    var _this = this;
-    var aScript = document.createElement('link');
-    aScript.rel = 'stylesheet';
-    aScript.href = "https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.css";
-
-    document.head.appendChild(aScript);
-    $.getScript("https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.js").then(function () {
-
-      $('#newTaskDueDate').datepicker().on('changeDate', function (ev) {
-        // $("#newTaskDueDate").change();
-        // _this.state.NewTaskDueDate = ev.date;
-        _this.setState({ NewTaskDueDate: $("#newTaskDueDate").val() });
-      });
-    })
-    //$(".DatePicker").val("aaaa");/
+   
 
     this.RealoadTaskFromDB();
   }
